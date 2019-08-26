@@ -10,9 +10,14 @@ export default class App extends React.Component {
   }
   onPressButton() {  
        let db = firebase.database();
-	   alert("configurado db");
+	   alert('probando insert en bdd');
 	   let reference = db.ref("/programadores");
-	   reference.child("/123").set({nombre:'Juan',apellido:'Perez'});
+	   reference.child("/123").set({nombre:'Juan',apellido:'Perez'}).then(() => {
+			alert('Registro Insertado!');
+		}).catch(() => {
+			alert('Error al insertar!');
+		});
+
     }  
 
   async componentDidMount() {
