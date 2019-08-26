@@ -1,4 +1,4 @@
-package com.invertase.rnfirebasestarter;
+package com.clearminds.pulpobase;
 
 import android.support.multidex.MultiDexApplication;
 
