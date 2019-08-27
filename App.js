@@ -1,53 +1,24 @@
-import React from 'react';
-import { StyleSheet, Platform, Image, Text, View, ScrollView, Button } from 'react-native';
+import React, { Component } from 'react';
+import { createStackNavigator, createAppContainer } from 'react-navigation';
+import Home from './screens/Home';
+import AddItem from './screens/AddItem';
+import List from './screens/List';
 
-import firebase from 'react-native-firebase';
+const AppNavigator = createStackNavigator(
+	{
+		Home,
+		AddItem,
+		List
+	},
+	{
+		initialRouteName: 'Home'
+	}
+);
 
-export default class App extends React.Component {
-  constructor() {
-    super();
-    this.state = {};
-  }
-  onPressButton() {  
-       let db = firebase.database();
-	   alert('probando insert en bdd');
-	   let reference = db.ref("/programadores");
-	   reference.child("/123").set({nombre:'Juan',apellido:'Perez'}).then(() => {
-			alert('Registro Insertado!');
-		}).catch(() => {
-			alert('Error al insertar!');
-		});
+const AppContainer = createAppContainer(AppNavigator);
 
-    }  
-
-  async componentDidMount() {
-  }
-
-  render() {
-    return (
-    <View style={styles.container}>  
-                <View style={styles.buttonContainer}>  
-                    <Button  
-                        onPress={this.onPressButton}  
-                        title="Press Me"  
-                    />  
-                </View>  
-	 </View>  
-    );
-  }
+export default class App extends Component {
+	render() {
+		return <AppContainer />;
+	}
 }
-
-const styles = StyleSheet.create({  
-    container: {  
-        flex: 1,  
-        justifyContent: 'center',  
-    },  
-    buttonContainer: {  
-        margin: 20  
-    },  
-    multiButtonContainer: {  
-        margin: 20,  
-        flexDirection: 'row',  
-        justifyContent: 'space-between'  
-    }  
-})  
