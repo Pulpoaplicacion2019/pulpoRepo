@@ -1,0 +1,5 @@
+en node_modules/react-native-gesture-handler/android/
+agregar el archivo gradle.properties
+
+android.useAndroidX=true
+android.enableJetifier=true
