@@ -11,7 +11,7 @@ import {
 
 //import firebase from 'react-native-firebase';
 
-import ResultadosScreen from "./app/screen/Resultado"; // Importar la página creada de prueba
+import ResultadosScreen from "./app/screens/Resultados"; // Importar la página creada de prueba
 
 export default class App extends React.Component {
   /* constructor() {

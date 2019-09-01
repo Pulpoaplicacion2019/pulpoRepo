@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, View } from "react-native";
 
-export default class Calendarios extends Component {
+export default class Resultados extends Component {
   render() {
     return (
       <View style={styles.viewBody}>
