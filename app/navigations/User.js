@@ -3,6 +3,7 @@ import { Text, View } from "react-native";
 import { createAppContainer } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
 import { createBottomTabNavigator } from "react-navigation-tabs";
+import { Icon } from "react-native-elements";
 
 // Ejemplo de código en la documentación https://reactnavigation.org/docs/en/hello-react-navigation.html
 
@@ -52,14 +53,30 @@ const posicionesScreenStack = createStackNavigator({
 
 // Root Stack - Es todo lo que agrupa la carga de los stacks
 
-const RootStack = createBottomTabNavigator({
-  Resultados: {
-    screen: resultadosScreenStack,
-    navigationOptions: ({ navigation }) => ({
-      tabBarLabel: "Resulgtados"
-    })
+const RootStack = createBottomTabNavigator(
+  {
+    Resultados: {
+      screen: resultadosScreenStack,
+      navigationOptions: ({ navigation }) => ({
+        tabBarLabel: "Resulgtados",
+        tabBarIcon: ({ tintColor }) => (
+          <Icon
+            name="calendar"
+            type="material-community"
+            size={22}
+            color={tintColor}
+          />
+        )
+      })
+    }
+  },
+  {
+    tabBarOptions: {
+      inactiveTintColor: "#646464",
+      activeTintColor: "#00a680"
+    }
   }
-});
+);
 
 // Contenedor de la navegacion de la aplicaión
 export default createAppContainer(RootStack);
