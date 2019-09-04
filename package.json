@@ -16,9 +16,10 @@
     "react-native": "0.59.9",
     "react-native-firebase": "^5.5.4",
     "react-native-gesture-handler": "^1.4.1",
-    "react-navigation": "^3.12.1",
+    "react-native-reanimated": "^1.2.0",
     "react-navigation": "^4.0.0",
-    "react-navigation-stack": "^1.5.1"
+    "react-navigation-stack": "^1.5.1",
+    "react-navigation-tabs": "^2.4.0"
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",
@@ -31,6 +32,9 @@
     "replace-in-file": "^3.4.4"
   },
   "jest": {
-    "preset": "react-native"
+    "preset": "react-native",
+    "setupFiles": [
+      "./node_modules/react-native-gesture-handler/jestSetup.js"
+    ]
   }
 }

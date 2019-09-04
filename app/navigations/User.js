@@ -1,7 +1,8 @@
 import React from "react";
 import { Text, View } from "react-native";
-import { createAppContainer, createBottomTabNavigator } from "react-navigation";
+import { createAppContainer } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
+import { createBottomTabNavigator } from "react-navigation-tabs";
 
 // Ejemplo de código en la documentación https://reactnavigation.org/docs/en/hello-react-navigation.html
 

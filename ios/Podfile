@@ -25,6 +25,8 @@ target 'PulpoBase' do
 
   pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
 
+  pod 'RNReanimated', :path => '../node_modules/react-native-reanimated'
+
 end
 
 target 'PulpoBase-tvOS' do
