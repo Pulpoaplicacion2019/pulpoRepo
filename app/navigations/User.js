@@ -68,9 +68,53 @@ const RootStack = createBottomTabNavigator(
           />
         )
       })
+    },
+    Calendarios: {
+      screen: calendariosScreenStack,
+      navigationOptions: ({ navigation }) => ({
+        tabBarLabel: "Calendarios",
+        tabBarIcon: ({ tintColor }) => (
+          <Icon
+            name="calendar"
+            type="material-community"
+            size={22}
+            color={tintColor}
+          />
+        )
+      })
+    },
+    Equipos: {
+      screen: equiposScreenStack,
+      navigationOptions: ({ navigation }) => ({
+        tabBarLabel: "Equipos",
+        tabBarIcon: ({ tintColor }) => (
+          <Icon
+            name="account-group"
+            type="material-community"
+            size={22}
+            color={tintColor}
+          />
+        )
+      })
+    },
+    Posiciones: {
+      screen: posicionesScreenStack,
+      navigationOptions: ({ navigation }) => ({
+        tabBarLabel: "Posiciones",
+        tabBarIcon: ({ tintColor }) => (
+          <Icon
+            name="dns-outline"
+            type="material-community"
+            size={22}
+            color={tintColor}
+          />
+        )
+      })
     }
   },
   {
+    initialRouteName: "Calendarios", // Guarda que tab se debe mostrar primero
+    order: ["Equipos", "Calendarios", "Resultados", "Posiciones"], // orden para el menú de dibujado
     tabBarOptions: {
       inactiveTintColor: "#646464",
       activeTintColor: "#00a680"
