@@ -53,7 +53,12 @@ const posicionesScreenStack = createStackNavigator({
 // Root Stack - Es todo lo que agrupa la carga de los stacks
 
 const RootStack = createBottomTabNavigator({
-  Resultados: { screen: resultadosScreenStack }
+  Resultados: {
+    screen: resultadosScreenStack,
+    navigationOptions: ({ navigation }) => ({
+      tabBarLabel: "Resulgtados"
+    })
+  }
 });
 
 // Contenedor de la navegacion de la aplicaión
