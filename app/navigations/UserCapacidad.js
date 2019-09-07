@@ -113,7 +113,7 @@ const RootStack = createBottomTabNavigator(
     }
   },
   {
-    initialRouteName: "Calendarios", // Guarda que tab se debe mostrar primero
+    initialRouteName: "Equipos", // Guarda que tab se debe mostrar primero
     order: ["Equipos", "Calendarios", "Resultados", "Posiciones"], // orden para el menú de dibujado
     tabBarOptions: {
       inactiveTintColor: "#646464",
