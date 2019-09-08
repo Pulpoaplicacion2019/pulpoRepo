@@ -34,7 +34,10 @@ export default class App extends React.Component {
   }
 
   async componentDidMount() {}*/
-
+componentDidMount() {
+      
+      global.idTorneo = 'Delgado_2019'
+	}
   render() {
     return (
       <View style={styles.container}>

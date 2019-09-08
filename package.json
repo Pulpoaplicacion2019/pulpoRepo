@@ -12,8 +12,10 @@
     "test": "jest"
   },
   "dependencies": {
+    "native-base": "^2.13.7",
     "react": "16.8.3",
     "react-native": "0.59.9",
+    "react-native-3dcube-navigation": "^1.0.4",
     "react-native-elements": "^1.1.0",
     "react-native-firebase": "^5.5.4",
     "react-native-gesture-handler": "^1.4.1",
