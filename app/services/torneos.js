@@ -1,4 +1,5 @@
 import firebase from 'react-native-firebase';
+import { isGenericTypeAnnotation } from '@babel/types';
 
 export const cargarTorneos =(object)=>{
 	console.log("ingresa a cargar");
@@ -18,7 +19,17 @@ listenForItems = (itemsRef,object) => {
       });
 		object.setState({
     	listaTorneos: global.torneos
-      });
+	  });
+
+	  if(global.enCursoComponent!=null){
+		var enCurso = [];
+		for(var i = 0; i<global.torneos.length; i++){
+		  if(global.torneos[i].estado =='C'){
+			enCurso.push(global.torneos[i]);
+		  }
+		}
+		global.enCursoComponent.setState({enCurso:enCurso });
+	  }
     });
   }
   

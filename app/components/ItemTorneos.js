@@ -5,12 +5,7 @@ import { IconButton} from 'react-native-paper';
 
 export default class Example extends Component {
 
-   constructor() {
-        super();
-        global.favoritos = [];
-      }
-
-      addFavorite=(idTorneo)=>{
+  addFavorite=(idTorneo)=>{
         for(var i = 0; i<this.props.torneos.length; i++){
           if(this.props.torneos[i].id === idTorneo  ){
             favoritos.push(torneos[i]);
@@ -43,6 +38,7 @@ export default class Example extends Component {
 				        	/>
           	                <Text style={styles.itemName}>{item.nombreTorneo}</Text>
 					        <Text style={styles.itemCode}>{item.anio}</Text>
+							     <Text style={styles.itemCode}>{item.estado}</Text>
 		        </ImageBackground>  
             </View>
         )}

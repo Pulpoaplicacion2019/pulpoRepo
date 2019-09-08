@@ -2,38 +2,34 @@ import React, { Component } from 'react';
 import { StyleSheet, View} from 'react-native';
 import firebase from 'react-native-firebase';
 import ItemTorneos from '../../components/ItemTorneos';
+import {cargarTorneos} from '../../services/torneos.js'
+
 
 export default class Example extends Component {
   constructor() {
     super();
     global.torneos = [];
+	console.log("ejecuta Constructor");
+		
   }
 	state = {
     urlResult :"",
     idLayout: 'torneo',
-    torneos:[]
+    listaTorneos:[]
 	};
 
-listenForItems = (itemsRef) => {
-    itemsRef.on('value', (snap) => {
-      snap.forEach((child) => {
-		  	    torneos.push(child.val());        
-      });
-     this.setState({
-    	torneos: torneos
-      });
-    });
-  }
-  
 	componentDidMount() {
-      const itemsRef = firebase.database().ref('torneos');	  
-      this.listenForItems(itemsRef);
+		console.log("ejecuta DidMount");
+	cargarTorneos(this);	
+     this.setState({
+    	listaTorneos: global.torneos
+      });
 	}
   
   render() {	  
     return (		
           <View style={[styles.container]} >
-             <ItemTorneos torneos={this.state.torneos} />
+             <ItemTorneos torneos={this.state.listaTorneos} />
             </View>       
     );
   }

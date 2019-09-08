@@ -10,6 +10,7 @@ export default class EnCurso extends Component {
   };
 
   componentDidMount() {
+    global.enCursoComponent=this;
     var enCurso = [];
     for(var i = 0; i<global.torneos.length; i++){
       if(global.torneos[i].estado =='C'){
