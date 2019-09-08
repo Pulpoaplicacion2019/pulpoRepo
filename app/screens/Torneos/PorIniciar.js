@@ -4,25 +4,18 @@ import ItemTorneos from '../../components/ItemTorneos';
 
 export default class PorIniciar extends Component {
   state ={
-    porIniciar:[]
+    listaTorneos:[]
   };
 
   componentDidMount() {
-    var porIniciar = [];
-    for(var i = 0; i<global.torneos.length; i++){
-      if(global.torneos[i].estado =='I'){
-        porIniciar.push(global.torneos[i]);
-      }
-    }
-    this.setState({
-    	porIniciar: porIniciar
-      });
+    global.porIniciarComponent=this;
+    cargarTorneo("I",porIniciarComponent,1);
   }
   
   render() {	  
     return (		
           <View style={[styles.container]} >
-             <ItemTorneos torneos={this.state.porIniciar} />
+             <ItemTorneos torneos={this.state.listaTorneos} />
             </View>       
     );
   }
