@@ -1,21 +1,24 @@
 import React, { Component } from "react";
 import { StyleSheet, View, Text } from "react-native";
+import ItemTorneos from '../../components/ItemTorneos';
 
 export default class Favoritos extends Component {
-  render() {
-    return (
-      <View style={styles.viewBody}>
-        <Text>Favoritos Screen ...</Text>
-      </View>
+  state = {
+    favoritos:global.favoritos
+	};
+  render() { 
+    return (		
+          <View style={[styles.container]} >
+             <ItemTorneos torneos={this.state.favoritos} />
+            </View>       
     );
   }
 }
 
 const styles = StyleSheet.create({
-  viewBody: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "#FFF"
-  }
+  container: {
+		flex: 1,
+		justifyContent: 'center',
+		backgroundColor: '#ebebeb'
+	},
 });

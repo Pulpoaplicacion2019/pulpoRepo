@@ -11,19 +11,18 @@ export default class Example extends Component {
 	state = {
     urlResult :"",
     idLayout: 'torneo',
-    misTorneos:[]
+    torneos:[]
 	};
 
 listenForItems = (itemsRef) => {
     itemsRef.on('value', (snap) => {
-     // var torneo = [];
       snap.forEach((child) => {
 		  	    torneos.push(child.val());        
       });
      this.setState({
-    	misTorneos: torneos
+    	torneos: torneos
       });
-        });
+    });
   }
   
 	componentDidMount() {
@@ -34,7 +33,7 @@ listenForItems = (itemsRef) => {
   render() {	  
     return (		
           <View style={[styles.container]} >
-             <ItemTorneos misTorneos={this.state.misTorneos} />
+             <ItemTorneos torneos={this.state.torneos} />
             </View>       
     );
   }
