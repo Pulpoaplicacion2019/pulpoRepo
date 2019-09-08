@@ -1,31 +1,36 @@
 import React, { Component } from "react";
 import { StyleSheet, View, Text } from "react-native";
 import firebase from "react-native-firebase";
-const db = firebase.database();
 
 export default class Calendarios extends Component {
   constructor() {
     super();
-    global.calendarios = [];
-    state = {
-      items: []
-    };
+    global.torneos = [];
   }
+  state = {
+    urlResult: "",
+    idLayout: "torneo",
+    misTorneos: []
+  };
 
   listenForItems = itemsRef => {
-    console.log("item:" + itemsRef);
-    itemsRef.on("value", snapshot => {
-      let data = snapshot.val();
+    itemsRef.on("value", snap => {
+      console.log("Se ingresa al listener");
+      let data = snap.val();
       let items = Object.values(data);
-      this.setState({ items });
+      console.log(items);
+      // var torneo = [];
+      snap.forEach(child => {
+        torneos.push(child.val());
+      });
+      this.setState({
+        misTorneos: torneos
+      });
     });
-
-    console.log(this.state);
   };
 
   componentDidMount() {
-    console.log("Ingreso a la parte de carga");
-    let itemsRef = db.ref("calendario/torneos");
+    const itemsRef = firebase.database().ref("torneos");
     this.listenForItems(itemsRef);
   }
   render() {
