@@ -3,13 +3,19 @@ import { StyleSheet, View, Text } from "react-native";
 import ItemTorneos from '../../components/ItemTorneos';
 
 export default class Favoritos extends Component {
-  state = {
-    favoritos:global.favoritos
-	};
-  render() { 
+  state ={
+    listaTorneos:[]
+  };
+
+  componentDidMount() {
+    global.favoritosComponent=this;
+    cargarTorneo(true,favoritosComponent,2);
+  }
+  
+  render() {	  
     return (		
           <View style={[styles.container]} >
-             <ItemTorneos torneos={this.state.favoritos} />
+             <ItemTorneos torneos={this.state.listaTorneos} />
             </View>       
     );
   }
