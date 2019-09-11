@@ -1,42 +1,68 @@
 import React, { Component } from "react";
-import { StyleSheet, View, Text } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Text,
+  FlatList,
+  ActivityIndicator
+} from "react-native";
 import firebase from "react-native-firebase";
+import { Image } from "react-native-elements";
 
 export default class Calendarios extends Component {
   constructor() {
     super();
-    global.torneos = [];
+    this.state = {
+      listCalendarios: null
+    };
   }
-  state = {
-    urlResult: "",
-    idLayout: "torneo",
-    misTorneos: []
-  };
 
   listenForItems = itemsRef => {
+    let resultadoCalendario = [];
+
     itemsRef.on("value", snap => {
-      console.log("Se ingresa al listener");
       let data = snap.val();
-      let items = Object.values(data);
-      console.log(items);
-      // var torneo = [];
-      snap.forEach(child => {
-        torneos.push(child.val());
-      });
-      this.setState({
-        misTorneos: torneos
-      });
+      resultadoCalendario = Object.values(data);
+
+      //this.setState({ items });
+      this.setState({ listCalendarios: resultadoCalendario });
     });
   };
 
   componentDidMount() {
-    const itemsRef = firebase.database().ref("torneos");
+    const itemsRef = firebase.database().ref("calendario/torneos/Delgado_2019");
     this.listenForItems(itemsRef);
+    console.log("State " + this.state);
   }
+
+  renderRow = listCalendarios => {
+    console.log("renderRow");
+    console.log(listCalendarios);
+  };
+
+  renderFlatList = listCalendarios => {
+    if (listCalendarios) {
+      return (
+        <FlatList
+          data={this.state.listCalendarios}
+          renderItem={this.renderRow}
+          keyExtractor={(item, index) => index.toString()}
+        />
+      );
+    } else {
+      return (
+        <View style={styles.startLoadCalendarios}>
+          <Text>Cargando Calendairio </Text>
+        </View>
+      );
+    }
+  };
+
   render() {
+    const { listCalendarios } = this.state;
     return (
       <View style={styles.viewBody}>
-        <Text>Calendarios Screen ...</Text>
+        {this.renderFlatList(listCalendarios)}
       </View>
     );
   }
@@ -48,5 +74,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "#fff"
-  }
+  },
+  startLoadCalendarios: { marginTop: 20, alignItems: "center" }
 });
