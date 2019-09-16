@@ -30,14 +30,53 @@ export default class Calendarios extends Component {
   };
 
   componentDidMount() {
-    const itemsRef = firebase.database().ref("calendario/torneos/Delgado_2019");
+    const itemsRef = firebase
+      .database()
+      .ref("calendario/torneos/Delgado_2019/1");
     this.listenForItems(itemsRef);
     console.log("State " + this.state);
   }
 
   renderRow = listCalendarios => {
     console.log("renderRow");
-    console.log(listCalendarios);
+    console.log(listCalendarios.item);
+    const {
+      categoria,
+      equipoUno,
+      equipoDos,
+      fecha,
+      hora,
+      minuto,
+      cancha
+    } = listCalendarios.item;
+    console.log(equipoUno);
+    return (
+      <View style={styles.viewPartidos}>
+        <View style={styles.viewEquipoUno}>
+          <Image
+            resizeMode="cover"
+            source={{ cancha }}
+            style={[styles.imagenEstilo, border("#7A7A7A")]}
+          />
+          <Text style={styles.viewNombreEquipo}>{equipoUno}</Text>
+        </View>
+        <View style={[styles.viewDatos]}>
+          <Text>{fecha}</Text>
+          <Text>
+            {hora}:{minuto}
+          </Text>
+          <Text>cancha: {cancha}</Text>
+        </View>
+        <View style={styles.viewEquipoUno}>
+          <Image
+            resizeMode="cover"
+            source={{ cancha }}
+            style={[styles.imagenEstilo, border("#7A7A7A")]}
+          />
+          <Text style={styles.viewNombreEquipo}>{equipoDos}</Text>
+        </View>
+      </View>
+    );
   };
 
   renderFlatList = listCalendarios => {
@@ -62,18 +101,48 @@ export default class Calendarios extends Component {
     const { listCalendarios } = this.state;
     return (
       <View style={styles.viewBody}>
+        <View style={styles.navegadorCategorias}>
+          <Text style={styles.titleCartegorias}>Categorias</Text>
+        </View>
         {this.renderFlatList(listCalendarios)}
       </View>
     );
   }
 }
 
+const border = color => {
+  return { borderColor: color, borderWidth: 2, backgroundColor: color };
+};
+
 const styles = StyleSheet.create({
   viewBody: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
     backgroundColor: "#fff"
   },
-  startLoadCalendarios: { marginTop: 20, alignItems: "center" }
+  navegadorCategorias: {
+    backgroundColor: "#FF0400",
+    height: 50,
+    marginBottom: 25,
+    marginTop: 20,
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  titleCartegorias: { fontSize: 20, color: "#FFFFFF" },
+  startLoadCalendarios: { marginTop: 20, alignItems: "center" },
+  viewEquipoUno: {
+    flex: 1,
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  viewNombreEquipo: { fontSize: 9 },
+  viewPartidos: {
+    flexDirection: "row",
+    marginLeft: 10,
+    // backgroundColor: "#F9F9F9",
+    marginTop: 5,
+    padding: 5
+  },
+  imagenEstilo: { width: 80, height: 80 },
+  viewDatos: { flex: 2, justifyContent: "center", alignItems: "center" }
 });

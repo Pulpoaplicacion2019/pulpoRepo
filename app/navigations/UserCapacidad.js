@@ -117,7 +117,7 @@ const RootStack = createBottomTabNavigator(
     order: ["Equipos", "Calendarios", "Resultados", "Posiciones"], // orden para el menú de dibujado
     tabBarOptions: {
       inactiveTintColor: "#646464",
-      activeTintColor: "#00a680"
+      activeTintColor: "#FF0400"
     }
   }
 );
