@@ -8,11 +8,6 @@ export default class Example extends Component {
     colorFavorito:"#ffffff"
   };
 
-  constructor(){
-    super();
-    global.colorFavorito="#ffffff";
-          }
-
  addFavorito=(torneo)=>{
      if(torneo.favorito){
        global.itemsRef.child(torneo.id).update({favorito:false});
@@ -30,6 +25,14 @@ export default class Example extends Component {
   
       }
 
+  pintarFavorito=(favorito)=>{
+    if(favorito){
+       return "#F79405"
+    }else{
+     return "#ffffff"
+    }
+  }
+
   render() {	  
 
     return (
@@ -46,7 +49,7 @@ export default class Example extends Component {
 								                style = {styles.itemContainer}>
 					        <IconButton
 					          	icon="star"
-					          	color={global.colorFavorito}
+					          	color={this.pintarFavorito(item.favorito)}
 					          	size={25}
 						        align= "left"
 						        onPress={() => this.addFavorito(item)}

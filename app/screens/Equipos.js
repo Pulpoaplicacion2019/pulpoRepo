@@ -4,7 +4,6 @@ import { Container, Header, Title, Content, Footer, FooterTab, Button, Left, Rig
 import firebase from 'react-native-firebase';
 import { Icon } from "react-native-elements";
 import ItemEquipos from '../components/ItemEquipos';
-import { NavigationActions } from "react-navigation";
 
 
 const styles = StyleSheet.create({
