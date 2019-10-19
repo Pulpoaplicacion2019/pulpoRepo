@@ -1,9 +1,8 @@
 import firebase from 'react-native-firebase';
-import { isGenericTypeAnnotation } from '@babel/types';
 
 export const cargarTorneos =(object)=>{
 	console.log("ingresa a cargar");
-	const itemsRef = firebase.database().ref('torneos');	  
+    global.itemsRef = firebase.database().ref('torneos');	  
 	listenForItems(itemsRef,object);
 
 }	
@@ -43,19 +42,24 @@ listenForItems = (itemsRef,object) => {
 			if(global.torneos[i].estado ==estado){
 				lista.push(global.torneos[i]);
 			  }
+
+			if(global.torneos[i].favorito == true){
+				global.colorFavorito="#F79405";
+			}else{
+				global.colorFavorito = "#ffffff";
+			}
 		}else if(modo == 2){
 			if(global.torneos[i].favorito == estado){
 				lista.push(global.torneos[i]);
+				global.colorFavorito="#F79405";
 			  }else{
 				  if(lista.length>0){
 					lista.splice(i,1);
+					global.colorFavorito = "#ffffff";
 				  }
 				  
 			  }
 		}
-	 
-
-	  
 	}
 	componente.setState({listaTorneos:lista });
   }

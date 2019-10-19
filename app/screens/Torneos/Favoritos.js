@@ -1,8 +1,16 @@
 import React, { Component } from "react";
-import { StyleSheet, View, Text } from "react-native";
+import {Platform, StyleSheet, View, Text } from "react-native";
+import { Icon } from "react-native-elements";
 import ItemTorneos from '../../components/ItemTorneos';
 
 export default class Favoritos extends Component {
+  static navigationOptions = {
+    tabBarLabel: "Favoritos",
+    tabBarIcon: ({ tintColor }) => {
+      let iconName = Platform.select({ ios: "ios-star", android: "md-star" });
+      return <Icon name={iconName} type="ionicon" color={tintColor} />;
+    }
+  };
   state ={
     listaTorneos:[]
   };
@@ -15,7 +23,7 @@ export default class Favoritos extends Component {
   render() {	  
     return (		
           <View style={[styles.container]} >
-             <ItemTorneos torneos={this.state.listaTorneos} />
+             <ItemTorneos torneos={this.state.listaTorneos} nav={this.props.navigation} />
             </View>       
     );
   }

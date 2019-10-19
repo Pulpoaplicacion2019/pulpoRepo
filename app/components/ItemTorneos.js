@@ -1,17 +1,33 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, ImageBackground } from 'react-native';
+import { StyleSheet, View, Text, ImageBackground, TouchableOpacity,Alert } from 'react-native';
 import { FlatGrid } from 'react-native-super-grid';
 import { IconButton} from 'react-native-paper';
 
 export default class Example extends Component {
+  state ={
+    colorFavorito:"#ffffff"
+  };
 
-  addFavorite=(idTorneo)=>{
-        for(var i = 0; i<this.props.torneos.length; i++){
-          if(this.props.torneos[i].id === idTorneo  ){
-            favoritos.push(torneos[i]);
+  constructor(){
+    super();
+    global.colorFavorito="#ffffff";
           }
+
+ addFavorito=(torneo)=>{
+     if(torneo.favorito){
+       global.itemsRef.child(torneo.id).update({favorito:false});
+       this.setState({colorFavorito:"#ffffff"});
+    	}else{
+        global.itemsRef.child(torneo.id).update({favorito:true});
+        this.setState({colorFavorito:"#F79405"});
         }
-        console.log(favoritos);
+  }
+
+  imagePressed(idTorneo, nav){
+    global.idTorneo = idTorneo
+    //Alert.alert(global.idTorneo)
+    console.log(idTorneo);
+  
       }
 
   render() {	  
@@ -21,25 +37,25 @@ export default class Example extends Component {
         itemDimension={130}
         items={this.props.torneos}
         style={styles.gridView}
-        // staticDimension={300}
-        // fixed
-        // spacing={20}
         renderItem={({ item, index }) => (	
 		
           <View style={[styles.itemContainer]} >
+            <TouchableOpacity onPress={()=>this.imagePressed(item.id, this.props.nav.navigate("EquiposScreen"))}>
+
 		        	<ImageBackground  source = {{uri: item.imagenTorneo}}
 								                style = {styles.itemContainer}>
 					        <IconButton
 					          	icon="star"
-					          	color="#ffffff"
+					          	color={global.colorFavorito}
 					          	size={25}
 						        align= "left"
-						        onPress={() => this.addFavorite(item.id)}
+						        onPress={() => this.addFavorito(item)}
 				        	/>
           	                <Text style={styles.itemName}>{item.nombreTorneo}</Text>
 					        <Text style={styles.itemCode}>{item.anio}</Text>
 							     <Text style={styles.itemCode}>{item.estado}</Text>
 		        </ImageBackground>  
+            </TouchableOpacity>
             </View>
         )}
       />

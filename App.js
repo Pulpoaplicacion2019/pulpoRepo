@@ -1,48 +1,37 @@
 import React from "react";
+//import Orientation, { orientation } from "react-native-orientation";
+import MisTorneosScreen from "./app/navigations/Home"; // Importar la página creada de prueba
 import {
   StyleSheet,
-  Platform,
-  Image,
-  Text,
-  View,
-  ScrollView,
-  Button
+  View
 } from "react-native";
+/*
+import MisTorneosScreen from "./app/navigations/Home"; // Importar la página creada de prueba*/
 
-//import firebase from 'react-native-firebase';
-
-import ResultadosScreen from "./app/navigations/User"; // Importar la página creada de prueba
 
 export default class App extends React.Component {
-  /* constructor() {
-    super();
-    this.state = {};
-  }
-  onPressButton() {
-    let db = firebase.database();
-    alert("probando insert en bdd");
-    let reference = db.ref("/programadores");
-    reference
-      .child("/123")
-      .set({ nombre: "Juan", apellido: "Perez" })
-      .then(() => {
-        alert("Registro Insertado!");
-      })
-      .catch(() => {
-        alert("Error al insertar!");
-      });
-  }
 
-  async componentDidMount() {}*/
+ /* componentDidMount = () => {
+    Orientation.lockToPortrait();
+  };*/
 
+/////////////////////////////////////////////
+
+/*componentDidMount() {
+
+      global.idTorneo = 'Delgado_2019'
+	}
+*/
+////////////////////////////////////////
   render() {
     return (
       <View style={styles.container}>
-        <ResultadosScreen />
+        <MisTorneosScreen />
       </View>
     );
   }
 }
+
 
 const styles = StyleSheet.create({
   container: {
