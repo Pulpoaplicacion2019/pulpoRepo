@@ -1,10 +1,18 @@
 import React, { Component } from "react";
-import { StyleSheet, View, Text } from "react-native";
+import {Platform, StyleSheet, View, Text } from "react-native";
+import { Icon } from "react-native-elements";
 import ItemTorneos from '../../components/ItemTorneos';
-import { cargarTorneos } from "../../services/torneos";
 
 
 export default class EnCurso extends Component {
+
+  static navigationOptions = {
+    tabBarLabel: "En Curso",
+    tabBarIcon: ({ tintColor }) => {
+      let iconName = Platform.select({ ios: "ios-fastforward", android: "md-fastforward" });
+      return <Icon name={iconName} type="ionicon" color={tintColor} />;
+    }
+  };
 
   state ={
     listaTorneos:[]
@@ -18,7 +26,7 @@ export default class EnCurso extends Component {
   render() {	  
     return (		
           <View style={[styles.container]} >
-             <ItemTorneos torneos={this.state.listaTorneos} />
+             <ItemTorneos torneos={this.state.listaTorneos} nav={this.props.navigation} />
             </View>       
     );
   }

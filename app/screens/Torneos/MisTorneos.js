@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
-import { StyleSheet, View} from 'react-native';
-import firebase from 'react-native-firebase';
+import {StyleSheet, View} from 'react-native';
 import ItemTorneos from '../../components/ItemTorneos';
 import {cargarTorneos} from '../../services/torneos.js'
 
-
 export default class Example extends Component {
+
+  static navigationOptions = {
+    headerTitle: "Torneos"
+  };
   constructor() {
     super();
     global.torneos = [];
-	console.log("ejecuta Constructor");
 		
   }
 	state = {
@@ -19,8 +20,7 @@ export default class Example extends Component {
 	};
 
 	componentDidMount() {
-		console.log("ejecuta DidMount");
-	cargarTorneos(this);	
+	  cargarTorneos(this);	
      this.setState({
     	listaTorneos: global.torneos
       });
@@ -29,7 +29,7 @@ export default class Example extends Component {
   render() {	  
     return (		
           <View style={[styles.container]} >
-             <ItemTorneos torneos={this.state.listaTorneos} />
+             <ItemTorneos torneos={this.state.listaTorneos} nav={this.props.navigation}/>
             </View>       
     );
   }
