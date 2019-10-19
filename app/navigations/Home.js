@@ -74,24 +74,6 @@ export default createAppContainer(RootSwitch);
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Creación de los stack (Conjunto de pantallas de la aplicacion) para relacionar los screen con la navegacion
 
 //Calendarios
