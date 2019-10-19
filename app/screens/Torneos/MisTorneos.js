@@ -1,12 +1,18 @@
 import React, { Component } from 'react';
-import {StyleSheet, View} from 'react-native';
+import {Platform,StyleSheet, View} from 'react-native';
 import ItemTorneos from '../../components/ItemTorneos';
-import {cargarTorneos} from '../../services/torneos.js'
+import {cargarTorneos} from '../../services/torneos.js';
+import { Icon } from "react-native-elements";
 
 export default class Example extends Component {
 
   static navigationOptions = {
-    headerTitle: "Torneos"
+    headerTitle: "Torneos",
+    tabBarLabel: "Torneos",
+    tabBarIcon: ({ tintColor }) => {
+      let iconName = Platform.select({ ios: "ios-basketball", android: "md-basketball" });
+      return <Icon name={iconName} type="ionicon" color={tintColor} />;
+    }
   };
   constructor() {
     super();

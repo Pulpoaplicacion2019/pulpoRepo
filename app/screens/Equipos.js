@@ -4,6 +4,7 @@ import { Container, Header, Title, Content, Footer, FooterTab, Button, Left, Rig
 import firebase from 'react-native-firebase';
 import { Icon } from "react-native-elements";
 import ItemEquipos from '../components/ItemEquipos';
+import { NavigationActions } from "react-navigation";
 
 
 const styles = StyleSheet.create({
@@ -30,10 +31,10 @@ export default class Equipos extends Component {
       ios: null,
       android: (
         <Icon
-          name="md-arrow"
+          name="md-arrow-back"
           type="ionicon"
           containerStyle={styles.icon}
-          onPress={() => navigation.goBack("MisTorneosScreen")}
+          onPress={() => navigation.navigate('TorneosStack',{},navigation.navigate({routeName:'MisTorneosScreen'}))}
         />
       )
     })
