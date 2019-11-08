@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Text, ImageBackground, TouchableOpacity,Alert } from 'react-native';
 import { FlatGrid } from 'react-native-super-grid';
 import { IconButton} from 'react-native-paper';
-
+import styles from "../Styles/styles";
 export default class Example extends Component {
   state ={
     colorFavorito:"#ffffff"
@@ -20,7 +20,6 @@ export default class Example extends Component {
 
   imagePressed(idTorneo, nav){
     global.idTorneo = idTorneo
-    //Alert.alert(global.idTorneo)
     console.log(idTorneo);
   
       }
@@ -34,7 +33,6 @@ export default class Example extends Component {
   }
 
   render() {	  
-
     return (
       <FlatGrid
         itemDimension={130}
@@ -43,21 +41,23 @@ export default class Example extends Component {
         renderItem={({ item, index }) => (	
 		
           <View style={[styles.itemContainer]} >
-            <TouchableOpacity onPress={()=>this.imagePressed(item.id, this.props.nav.navigate("EquiposScreen"))}>
-
+            <TouchableOpacity onPress={()=>this.imagePressed(item.id, this.props.nav.navigate("EquiposScreen",global.idTorneo))}>
 		        	<ImageBackground  source = {{uri: item.imagenTorneo}}
-								                style = {styles.itemContainer}>
+								                style = {styles.image}>
+               
 					        <IconButton
 					          	icon="star"
 					          	color={this.pintarFavorito(item.favorito)}
 					          	size={25}
 						        align= "left"
 						        onPress={() => this.addFavorito(item)}
+                    style={styles.iconFav}
 				        	/>
+                 
           	                <Text style={styles.itemName}>{item.nombreTorneo}</Text>
-					        <Text style={styles.itemCode}>{item.anio}</Text>
-							     <Text style={styles.itemCode}>{item.estado}</Text>
+					        <Text style={styles.itemYear}>{item.anio}</Text>
 		        </ImageBackground>  
+              
             </TouchableOpacity>
             </View>
         )}
@@ -65,26 +65,3 @@ export default class Example extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  gridView: {
-    marginTop: 20,
-    flex: 1,
-  },
-  itemContainer: {
-    justifyContent: 'flex-end',
-    borderRadius: 5,
-    padding: 10,
-    height: 150,
-  },
-  itemName: {
-    fontSize: 16,
-    color: '#e67e22',
-    fontWeight: '600',
-  },
-  itemCode: {
-    fontWeight: '600',
-    fontSize: 12,
-    color: '#e67e22',
-  },
-});

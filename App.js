@@ -2,8 +2,12 @@ import React from "react";
 //import Orientation, { orientation } from "react-native-orientation";
 import MisTorneosScreen from "./app/navigations/Home"; // Importar la página creada de prueba
 import {
+   SafeAreaView,
   StyleSheet,
-  View
+  ScrollView,
+  View,
+  Text,
+  StatusBar,
 } from "react-native";
 /*
 import MisTorneosScreen from "./app/navigations/Home"; // Importar la página creada de prueba*/
