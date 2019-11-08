@@ -3,17 +3,31 @@ import {Platform,StyleSheet, View} from 'react-native';
 import ItemTorneos from '../../components/ItemTorneos';
 import {cargarTorneos} from '../../services/torneos.js';
 import { Icon } from "react-native-elements";
+import {DrawerActions}from "react-navigation-drawer"
+import styles from "../../Styles/styles";
 
 export default class Example extends Component {
 
-  static navigationOptions = {
+  static navigationOptions = ({ navigation }) => ({
     headerTitle: "Torneos",
-    tabBarLabel: "Torneos",
+    headerLeft: Platform.select({
+      ios: null,
+      android: (
+        <Icon
+          name="md-menu"
+          type="ionicon"
+         // containerStyle={styles.icon}
+          onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())}
+        />
+      )
+    }),
+   /* tabBarLabel: "Mis Torneos",
     tabBarIcon: ({ tintColor }) => {
       let iconName = Platform.select({ ios: "ios-basketball", android: "md-basketball" });
       return <Icon name={iconName} type="ionicon" color={tintColor} />;
-    }
-  };
+    }*/
+  });
+
   constructor() {
     super();
     global.torneos = [];
@@ -31,6 +45,10 @@ export default class Example extends Component {
     	listaTorneos: global.torneos
       });
 	}
+  componentWillUnmount() {
+    console.log("salir");
+  }
+ 
   
   render() {	  
     return (		
@@ -40,11 +58,3 @@ export default class Example extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-		flex: 1,
-		justifyContent: 'center',
-		backgroundColor: '#ebebeb'
-	},
-});

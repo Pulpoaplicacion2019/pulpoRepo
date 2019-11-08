@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import {Platform, StyleSheet, View, Text } from "react-native";
 import { Icon } from "react-native-elements";
 import ItemTorneos from '../../components/ItemTorneos';
-
+import styles from "../../Styles/styles";
 
 export default class EnCurso extends Component {
 
@@ -23,6 +23,10 @@ export default class EnCurso extends Component {
     cargarTorneo("C",enCursoComponent,1);
   }
   
+  componentWillUnmount() {
+    global.enCursoComponent=null;
+  }
+  
   render() {	  
     return (		
           <View style={[styles.container]} >
@@ -31,11 +35,3 @@ export default class EnCurso extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-		flex: 1,
-		justifyContent: 'center',
-		backgroundColor: '#ebebeb'
-	},
-});

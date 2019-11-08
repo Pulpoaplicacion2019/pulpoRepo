@@ -1,7 +1,9 @@
 package com.clearminds.pulpobase;
 
-import android.support.multidex.MultiDexApplication;
+//import android.support.multidex.MultiDexApplication;
+import androidx.multidex.MultiDexApplication;
 
+import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.swmansion.reanimated.ReanimatedPackage;
@@ -64,6 +66,30 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
         new RNFirebasePerformancePackage(),
         new RNFirebaseStoragePackage()
       );
+	   /*  @SuppressWarnings("UnnecessaryLocalVariable")
+      List<ReactPackage> packages = new PackageList(this).getPackages();
+      // Packages that cannot be autolinked yet can be added manually here, for example:
+      // packages.add(new MyReactNativePackage());
+	 // packages.add(new MainReactPackage());
+	 // packages.add(new RNVectorIconsPackage());
+	 // packages.add(new RNReanimatedPackage());
+	 //packages.add(new RNGestureHandlerPackage());
+	 /* packages.add(new RNFirebasePackage());
+	  packages.add(new RNFirebaseAdMobPackage());
+	  packages.add(new RNFirebaseAnalyticsPackage());
+	  packages.add(new RNFirebaseAuthPackage());
+	  packages.add(new RNFirebaseRemoteConfigPackage());
+	  packages.add(new RNFirebaseCrashlyticsPackage());
+	  packages.add(new RNFirebaseDatabasePackage());
+	  packages.add(new RNFirebaseFirestorePackage());
+	  packages.add(new RNFirebaseFunctionsPackage());
+	  packages.add(new RNFirebaseInstanceIdPackage());
+	  packages.add(new RNFirebaseLinksPackage());
+	  packages.add(new RNFirebaseMessagingPackage());
+	  packages.add(new RNFirebaseNotificationsPackage());
+	  packages.add(new RNFirebasePerformancePackage());
+      packages.add(new RNFirebaseStoragePackage());*/
+      //return packages;*/
     }
 
     @Override

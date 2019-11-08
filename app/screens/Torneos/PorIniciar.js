@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Platform,StyleSheet, View, Text } from "react-native";
 import { Icon } from "react-native-elements";
 import ItemTorneos from '../../components/ItemTorneos';
+import styles from "../../Styles/styles";
 
 export default class PorIniciar extends Component {
   static navigationOptions = {
@@ -21,6 +22,10 @@ export default class PorIniciar extends Component {
     cargarTorneo("I",porIniciarComponent,1);
   }
   
+  componentWillUnmount() {
+    global.porIniciarComponent=null;
+  }
+  
   render() {	  
     return (		
           <View style={[styles.container]} >
@@ -29,11 +34,3 @@ export default class PorIniciar extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-		flex: 1,
-		justifyContent: 'center',
-		backgroundColor: '#ebebeb'
-	},
-});
