@@ -7,12 +7,15 @@ export default class ItemEquipos extends Component {
 	static propTypes = {
       
 	};
-
+state = {
+   lista : [{id:'Prueba_2019',
+             nombreEquipo:'Prueba_2019'}]
+}
 
 	render() {
 		return (
 			<View style={styles.itemsList}>
-				{this.props.lista.map((item, index) => {
+				{this.state.lista.map((item, index) => {
 					return (
 						<View key={index}>
 							<Text style={styles.itemtext}>{item.nombreEquipo}</Text>
@@ -29,7 +32,7 @@ export default class ItemEquipos extends Component {
 
 const styles = StyleSheet.create({
 	itemsList: {
-		flex: 1,
+		flex: 2,
 		flexDirection: 'row',
 		justifyContent: 'space-around'
 	},
