@@ -15,7 +15,7 @@ state = {
 	render() {
 		return (
 			<View style={styles.itemsList}>
-				{this.state.lista.map((item, index) => {
+				{this.props.lista.map((item, index) => {
 					return (
 						<View key={index}>
 							<Text style={styles.itemtext}>{item.nombreEquipo}</Text>
@@ -33,7 +33,7 @@ state = {
 const styles = StyleSheet.create({
 	itemsList: {
 		flex: 2,
-		flexDirection: 'row',
+		flexDirection: 'column',
 		justifyContent: 'space-around'
 	},
 	itemtext: {

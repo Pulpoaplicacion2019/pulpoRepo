@@ -20,7 +20,8 @@ const styles = StyleSheet.create({
 		backgroundColor: '#ebebeb'
 	},
    header: {
-		backgroundColor: '#E67E22'
+		backgroundColor: '#E67E22',
+      justifyContent: "center"
 	}
 });
 export default class Equipos extends Component {
@@ -62,8 +63,8 @@ listenForItems = (itemsRef) => {
       snap.forEach((child) => {
         lista.push({
           id: child.key,
-          nombreEquipo: child.nombreEquipo,
-          imagenEquipo: child.imagenEquipo
+          nombreEquipo: child._value.nombreEquipo,
+          imagenEquipo: child._value.imagenEquipo
         });
       });
 
@@ -76,11 +77,34 @@ listenForItems = (itemsRef) => {
 next = () => {
        var indice = this.state.index;
        const itemsRef = this.state.itemsRef;
-       var rEq =itemsRef.child(global.idTorneo+'/categorias/'+this.state.listaCat[++indice].id+'/equipos');
-      this.listenForItemsEquipos(rEq);
-      this.setState({
-        index: indice
-      });
+       
+       ++indice;
+       if(indice < this.state.listaCat.length){
+          var categ = this.state.listaCat[indice].id;
+          var rEq =itemsRef.child(global.idTorneo+'/categorias/'+categ+'/equipos');
+         this.listenForItemsEquipos(rEq);
+          this.setState({
+           index: indice,
+           categoria: categ
+         });
+      }
+     
+     }
+ back = () => {
+       var indice = this.state.index;
+       const itemsRef = this.state.itemsRef;
+       
+       --indice;
+       if(indice >= 0){
+          var categ = this.state.listaCat[indice].id;
+          var rEq =itemsRef.child(global.idTorneo+'/categorias/'+categ+'/equipos');
+         this.listenForItemsEquipos(rEq);
+          this.setState({
+           index: indice,
+           categoria: categ
+         });
+      }
+     
      }
      
 	componentDidMount() {
@@ -95,13 +119,17 @@ next = () => {
       <View style={styles.container}>
       <Container>
                  <Header style={styles.header}>
-                          <Left></Left>
+                          <Left>
+                              <Button transparent>
+                                  <Icon name='keyboard-arrow-left' onPress={this.back} />
+                              </Button>
+                          </Left>
                           <Body>
                               <Title>{this.state.categoria}</Title>
                           </Body>
                           <Right>
                               <Button transparent>
-                                  <Icon name='menu' />
+                                  <Icon name='keyboard-arrow-right' onPress={this.next} />
                               </Button>
                            </Right>
                    </Header>
