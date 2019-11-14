@@ -49,8 +49,8 @@ listenForItems = (itemsRef) => {
         listaCat: lista,
         categoria:lista[0].id
       });
-     //  const itemsRef = this.state.itemsRef;
-       var rEq =itemsRef.child('/'+lista[0].id+'/equipos');
+      
+       var rEq =itemsRef.child(lista[0].id+'/equipos');
       this.listenForItemsEquipos(rEq);
     });
   }
