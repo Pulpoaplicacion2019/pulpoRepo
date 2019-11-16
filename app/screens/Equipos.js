@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import {Platform, StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View, Text, ScrollView } from "react-native";
 import { Container, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body } from 'native-base';
 import firebase from 'react-native-firebase';
 import { Icon } from "react-native-elements";
+import ItemCategorias from '../components/ItemCategorias';
 import ItemEquipos from '../components/ItemEquipos';
 
 
@@ -19,74 +20,122 @@ const styles = StyleSheet.create({
 		backgroundColor: '#ebebeb'
 	},
    header: {
-		backgroundColor: '#E67E22'
+		backgroundColor: '#E67E22',
+      justifyContent: "center"
 	}
 });
 export default class Equipos extends Component {
-
-  static navigationOptions = ({navigation})=>({
-    headerTitle: "Equipos",
-    headerLeft: Platform.select({
-      ios: null,
-      android: (
-        <Icon
-          name="md-arrow-back"
-          type="ionicon"
-          containerStyle={styles.icon}
-          onPress={() => navigation.navigate('TorneosStack',{},navigation.navigate({routeName:'MisTorneosScreen'}))}
-        />
-      )
-    })
-  });
    
 state = {
-   lista : [{id:'Prueba_2019',
-             nombreEquipo:'Prueba_2019'}],
-   categorias : [],
-   titulo: ''
+   listaCat : [],
+   index:0,
+   categoria:'',
+   itemsRef:firebase.database().ref('torneos'),
+   listaEquip: []
 }
 listenForItems = (itemsRef) => {
+   
     itemsRef.on('value', (snap) => {
 
       // get children as an array
       var lista = [];
       var equipos;
       snap.forEach((child) => {
-       equipos = child.val().equipos;
         lista.push({
-           equipos: Object.values(equipos),
           id: child.key
         });
       });
 
       this.setState({
-        categorias: lista,
-        lista: lista[1].equipos
+        listaCat: lista,
+        categoria:lista[0].id
+      });
+      
+       var rEq =itemsRef.child(lista[0].id+'/equipos');
+      this.listenForItemsEquipos(rEq);
+    });
+  }
+  listenForItemsEquipos = (itemsRef) => {
+    itemsRef.on('value', (snap) => {
+
+      // get children as an array
+      var lista = [];
+      snap.forEach((child) => {
+        lista.push({
+          id: child.key,
+          nombreEquipo: child._value.nombreEquipo,
+          imagenEquipo: child._value.imagenEquipo
+        });
+      });
+
+      this.setState({
+        listaEquip: lista
       });
 
     });
   }
-
+next = () => {
+       var indice = this.state.index;
+       const itemsRef = this.state.itemsRef;
+       
+       ++indice;
+       if(indice < this.state.listaCat.length){
+          var categ = this.state.listaCat[indice].id;
+          var rEq =itemsRef.child(global.idTorneo+'/categorias/'+categ+'/equipos');
+         this.listenForItemsEquipos(rEq);
+          this.setState({
+           index: indice,
+           categoria: categ
+         });
+      }
+     
+     }
+ back = () => {
+       var indice = this.state.index;
+       const itemsRef = this.state.itemsRef;
+       
+       --indice;
+       if(indice >= 0){
+          var categ = this.state.listaCat[indice].id;
+          var rEq =itemsRef.child(global.idTorneo+'/categorias/'+categ+'/equipos');
+         this.listenForItemsEquipos(rEq);
+          this.setState({
+           index: indice,
+           categoria: categ
+         });
+      }
+     
+     }
+     
 	componentDidMount() {
-      const itemsRef = firebase.database().ref('torneos');
-      var lCat =itemsRef.child(global.idTorneo+'/categorias');
-      this.listenForItems(lCat);
-      
+      const itemsRef = this.state.itemsRef;
+       var RCat =itemsRef.child(global.idTorneo+'/categorias/');
+      this.listenForItems(RCat);
+
 	}
-   atras(){
-      console.log('aquii');
-      this.setState({
-        titulo: 'siguiente'
-      });
-   }
   render() {
     return (
       
       <View style={styles.container}>
-      <Container> 
+      <Container>
+                 <Header style={styles.header}>
+                          <Left>
+                              <Button transparent>
+                                  <Icon name='keyboard-arrow-left' onPress={this.back} />
+                              </Button>
+                          </Left>
+                          <Body>
+                              <Title>{this.state.categoria}</Title>
+                          </Body>
+                          <Right>
+                              <Button transparent>
+                                  <Icon name='keyboard-arrow-right' onPress={this.next} />
+                              </Button>
+                           </Right>
+                   </Header>
                 <Content>
                     <View style={styles.container}>                  
-                          <ItemEquipos lista={this.state.lista} />
+                          <ItemEquipos lista={this.state.listaEquip} />
                     </View>
                 </Content>
        </Container>

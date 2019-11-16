@@ -7,7 +7,10 @@ export default class ItemEquipos extends Component {
 	static propTypes = {
       
 	};
-
+state = {
+   lista : [{id:'Prueba_2019',
+             nombreEquipo:'Prueba_2019'}]
+}
 
 	render() {
 		return (
@@ -29,8 +32,8 @@ export default class ItemEquipos extends Component {
 
 const styles = StyleSheet.create({
 	itemsList: {
-		flex: 1,
-		flexDirection: 'row',
+		flex: 2,
+		flexDirection: 'column',
 		justifyContent: 'space-around'
 	},
 	itemtext: {
