@@ -19,6 +19,8 @@ import FavoritosScreen from "../screens/Torneos/Favoritos";
 import EnCursoScreen from "../screens/Torneos/EnCurso";
 import PorIniciarScreen from "../screens/Torneos/PorIniciar";
 import MisTorneosScreen from "../screens/Torneos/MisTorneos";
+import PerfilTorneoScreen from "../screens/Torneos/PerfilTorneo";
+
 
 import CalendariosScreen from "../screens/Calendarios";
 import EquiposScreen from "../screens/Equipos";
@@ -29,7 +31,10 @@ import LoginScreen from "../screens/Login"
 
 
 
+
 const TorneosStack = createStackNavigator({ MisTorneosScreen,FavoritosScreen,EnCursoScreen,PorIniciarScreen});
+const NuevoStack = createStackNavigator({PerfilTorneoScreen});
+
 
 TorneosStack.navigationOptions = ({ navigation }) => {
   const tabBarVisible = true;
@@ -84,10 +89,10 @@ LoginStack.navigationOptions ={
 //HAMBURGUESA
 const MainNavigator = Platform.select({
   ios: createBottomTabNavigator({LoginStack }),
-  android: createDrawerNavigator({TorneosStack,LoginStack }, { contentComponent: BurgerMenu })
+  android: createDrawerNavigator({TorneosStack,LoginStack,NuevoStack }, { contentComponent: BurgerMenu })
 });
 //Menu inferior
-const AuthTabs = createBottomTabNavigator({ TorneosStack,FavoritosScreen, EnCursoScreen,PorIniciarScreen  });
+const AuthTabs = createBottomTabNavigator({ TorneosStack,FavoritosScreen, EnCursoScreen,PorIniciarScreen });
 const EquiTabs = createBottomTabNavigator({EquiposStack,CalendariosScreen,PosicionesScreen,ResultadosScreen});
 const RootSwitch = createSwitchNavigator({ MisTorneosScreen, AuthTabs ,EquiTabs,MainNavigator}, {initialRouteName: "AuthTabs" });
 
