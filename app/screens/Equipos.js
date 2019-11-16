@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { StyleSheet, View, Text, ScrollView } from "react-native";
 import { Container, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body } from 'native-base';
-import firebase from 'react-native-firebase';
 import { Icon } from "react-native-elements";
+import {loadTeams} from '../services/equipos.js';
 import ItemCategorias from '../components/ItemCategorias';
 import ItemEquipos from '../components/ItemEquipos';
 
@@ -30,59 +30,17 @@ state = {
    listaCat : [],
    index:0,
    categoria:'',
-   itemsRef:firebase.database().ref('torneos'),
    listaEquip: []
 }
-listenForItems = (itemsRef) => {
-   
-    itemsRef.on('value', (snap) => {
-
-      // get children as an array
-      var lista = [];
-      var equipos;
-      snap.forEach((child) => {
-        lista.push({
-          id: child.key
-        });
-      });
-
-      this.setState({
-        listaCat: lista,
-        categoria:lista[0].id
-      });
-      
-       var rEq =itemsRef.child(lista[0].id+'/equipos');
-      this.listenForItemsEquipos(rEq);
-    });
-  }
-  listenForItemsEquipos = (itemsRef) => {
-    itemsRef.on('value', (snap) => {
-
-      // get children as an array
-      var lista = [];
-      snap.forEach((child) => {
-        lista.push({
-          id: child.key,
-          nombreEquipo: child._value.nombreEquipo,
-          imagenEquipo: child._value.imagenEquipo
-        });
-      });
-
-      this.setState({
-        listaEquip: lista
-      });
-
-    });
-  }
+ 
 next = () => {
        var indice = this.state.index;
-       const itemsRef = this.state.itemsRef;
        
        ++indice;
        if(indice < this.state.listaCat.length){
-          var categ = this.state.listaCat[indice].id;
-          var rEq =itemsRef.child(global.idTorneo+'/categorias/'+categ+'/equipos');
-         this.listenForItemsEquipos(rEq);
+         var categ = this.state.listaCat[indice];
+         var lista = this.state.listaCat;
+         loadTeams(this,lista,indice);
           this.setState({
            index: indice,
            categoria: categ
@@ -92,13 +50,12 @@ next = () => {
      }
  back = () => {
        var indice = this.state.index;
-       const itemsRef = this.state.itemsRef;
        
        --indice;
        if(indice >= 0){
-          var categ = this.state.listaCat[indice].id;
-          var rEq =itemsRef.child(global.idTorneo+'/categorias/'+categ+'/equipos');
-         this.listenForItemsEquipos(rEq);
+          var categ = this.state.listaCat[indice];
+        var lista = this.state.listaCat;
+        loadTeams(this,lista,indice);
           this.setState({
            index: indice,
            categoria: categ
@@ -108,9 +65,13 @@ next = () => {
      }
      
 	componentDidMount() {
-      const itemsRef = this.state.itemsRef;
-       var RCat =itemsRef.child(global.idTorneo+'/categorias/');
-      this.listenForItems(RCat);
+       var lista = global.listaCategorias;
+     this.setState({
+        listaCat: lista,
+        categoria:lista[0]
+      });
+ 
+     loadTeams(this,lista,0);
 
 	}
   render() {
