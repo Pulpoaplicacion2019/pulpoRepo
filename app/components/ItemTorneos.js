@@ -18,11 +18,12 @@ export default class Example extends Component {
         }
   }
 
-  imagePressed(idTorneo, nav){
-    global.idTorneo = idTorneo
+  imagePressed(idTorneo,categorias,nav){
+    global.idTorneo = idTorneo;
+    global.listaCategorias = Object.getOwnPropertyNames(categorias);
     console.log(idTorneo);
   
-      }
+  }
 
   pintarFavorito=(favorito)=>{
     if(favorito){
@@ -41,7 +42,7 @@ export default class Example extends Component {
         renderItem={({ item, index }) => (	
 		
           <View style={[styles.itemContainer]} >
-            <TouchableOpacity onPress={()=>this.imagePressed(item.id, this.props.nav.navigate("EquiposScreen",global.idTorneo))}>
+            <TouchableOpacity onPress={()=>this.imagePressed(item.id,item.categorias, this.props.nav.navigate("EquiposScreen",global.idTorneo))}>
 		        	<ImageBackground  source = {{uri: item.imagenTorneo}}
 								                style = {styles.image}>
                
