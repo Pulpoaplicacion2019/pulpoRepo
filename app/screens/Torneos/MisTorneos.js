@@ -5,6 +5,9 @@ import {cargarTorneos} from '../../services/torneos.js';
 import { Icon } from "react-native-elements";
 import {DrawerActions}from "react-navigation-drawer"
 import styles from "../../Styles/styles";
+import ActionButton from "react-native-action-button";
+
+
 
 export default class Example extends Component {
 
@@ -54,6 +57,13 @@ export default class Example extends Component {
     return (		
           <View style={[styles.container]} >
              <ItemTorneos torneos={this.state.listaTorneos} nav={this.props.navigation}/>
+             <ActionButton
+          buttonColor="#00A680"
+          onPress={() => {
+          this.props.navigation.navigate("PerfilTorneoScreen");
+            
+          }}
+        />
             </View>       
     );
   }
