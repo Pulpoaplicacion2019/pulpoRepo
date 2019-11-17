@@ -42,7 +42,7 @@ export default class Example extends Component {
         renderItem={({ item, index }) => (	
 		
           <View style={[styles.itemContainer]} >
-            <TouchableOpacity onPress={()=>this.imagePressed(item.id,item.categorias, this.props.nav.navigate("EquiposScreen",global.idTorneo))}>
+            <TouchableOpacity onPress={()=>this.imagePressed(item.id,item.categorias, this.props.nav.navigate("TabEquipos",{nombreTorneo:item.nombreTorneo}))}>
 		        	<ImageBackground  source = {{uri: item.imagenTorneo}}
 								                style = {styles.image}>
                

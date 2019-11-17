@@ -10,26 +10,13 @@ import ActionButton from "react-native-action-button";
 
 
 export default class Example extends Component {
-
-  static navigationOptions = ({ navigation }) => ({
-    headerTitle: "Torneos",
-    headerLeft: Platform.select({
-      ios: null,
-      android: (
-        <Icon
-          name="md-menu"
-          type="ionicon"
-         // containerStyle={styles.icon}
-          onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())}
-        />
-      )
-    }),
-   /* tabBarLabel: "Mis Torneos",
-    tabBarIcon: ({ tintColor }) => {
+	 static navigationOptions = {
+       tabBarLabel:"Mis Torneos",
+	 tabBarIcon: ({ tintColor }) => {
       let iconName = Platform.select({ ios: "ios-basketball", android: "md-basketball" });
       return <Icon name={iconName} type="ionicon" color={tintColor} />;
-    }*/
-  });
+    },
+  };
 
   constructor() {
     super();
@@ -60,7 +47,7 @@ export default class Example extends Component {
              <ActionButton
           buttonColor="#00A680"
           onPress={() => {
-          this.props.navigation.navigate("PerfilTorneoScreen");
+          this.props.navigation.navigate("PerfilTorneo");
             
           }}
         />

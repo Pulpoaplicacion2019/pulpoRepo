@@ -25,7 +25,13 @@ const styles = StyleSheet.create({
 	}
 });
 export default class Equipos extends Component {
-   
+   static navigationOptions = {
+       tabBarLabel:"Equipos",
+	 tabBarIcon: ({ tintColor }) => {
+      let iconName = Platform.select({ ios: "ios-basketball", android: "md-basketball" });
+      return <Icon name={iconName} type="ionicon" color={tintColor} />;
+    },
+   };
 state = {
    listaCat : [],
    index:0,
