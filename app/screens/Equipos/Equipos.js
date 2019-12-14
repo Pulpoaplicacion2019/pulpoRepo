@@ -5,6 +5,7 @@ import { Icon } from "react-native-elements";
 import  ActionButton from "react-native-action-button";
 import {loadTeams} from '../../services/equipos.js';
 import ItemEquipos from '../../components/ItemEquipos';
+import NavegadorCategorias from '../../components/NavegadorCategorias.js'
 
 
 const styles = StyleSheet.create({
@@ -87,19 +88,7 @@ next = () => {
       <View style={styles.container}>
       <Container>
                  <Header style={styles.header}>
-                          <Left>
-                              <Button transparent>
-                                  <Icon name='keyboard-arrow-left' onPress={this.back} />
-                              </Button>
-                          </Left>
-                          <Body>
-                              <Title>{this.state.categoria}</Title>
-                          </Body>
-                          <Right>
-                              <Button transparent>
-                                  <Icon name='keyboard-arrow-right' onPress={this.next} />
-                              </Button>
-                           </Right>
+                         <NavegadorCategorias pintar = {(categ)=>{loadTeams(this,categ);}}></NavegadorCategorias>
                    </Header>
                 <Content>
                     <View style={styles.container}>                  
