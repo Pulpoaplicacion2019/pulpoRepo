@@ -120,10 +120,10 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff"
   },
   navegadorCategorias: {
-    backgroundColor: "#FF0400",
+    backgroundColor: "#232323",
     height: 50,
     marginBottom: 25,
-    marginTop: 20,
+    marginTop: 2,
     justifyContent: "center",
     alignItems: "center"
   },
@@ -138,11 +138,14 @@ const styles = StyleSheet.create({
   viewNombreEquipo: { fontSize: 9 },
   viewPartidos: {
     flexDirection: "row",
-    marginLeft: 10,
-    // backgroundColor: "#F9F9F9",
+    marginLeft: 5,
+    marginRight: 5,
+    backgroundColor: "#D9D9D9",
     marginTop: 5,
-    padding: 5
+    padding: 5,
+    borderRadius: 25,
+    height: 90
   },
-  imagenEstilo: { width: 80, height: 80 },
+  imagenEstilo: { width: 60, height: 60 },
   viewDatos: { flex: 2, justifyContent: "center", alignItems: "center" }
 });
