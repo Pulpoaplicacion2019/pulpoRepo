@@ -13,11 +13,12 @@ import PorIniciarScreen from "../screens/Torneos/PorIniciar";
 import MisTorneosScreen from "../screens/Torneos/MisTorneos";
 
 import CalendariosScreen from "../screens/Calendarios";
-import EquiposScreen from "../screens/Equipos";
+import EquiposScreen from "../screens/Equipos/Equipos";
 import PosicionesScreen from "../screens/Posiciones";
 import ResultadosScreen from "../screens/Resultados";
 
 import PerfilTorneoScreen from "../screens/Torneos/PerfilTorneo";
+import CrearEquiposScreen from "../screens/Equipos/CrearEquipos";
 
 import LoginScreen from "../screens/Login"
 
@@ -66,6 +67,9 @@ const TorneosRootStack = createStackNavigator({
 	PerfilTorneo:{
 		screen:PerfilTorneoScreen,
 		
+	},
+   CrearEquipos:{
+		screen:CrearEquiposScreen,
 	}},
 	{initialRouteName: 'TabTorneos',}
 );
