@@ -6,8 +6,14 @@ import {
   FlatList,
   ActivityIndicator
 } from "react-native";
-import firebase from "react-native-firebase";
+
 import { Image } from "react-native-elements";
+
+// Importación de constantes de color
+import * as color from "../constants/colors.js";
+
+// Importación componente de extración de firebase
+import { loadTeams } from "../services/calendarioService.js";
 
 export default class Calendarios extends Component {
   constructor() {
@@ -17,28 +23,11 @@ export default class Calendarios extends Component {
     };
   }
 
-  listenForItems = itemsRef => {
-    let resultadoCalendario = [];
-
-    itemsRef.on("value", snap => {
-      let data = snap.val();
-      resultadoCalendario = Object.values(data);
-
-      //this.setState({ items });
-      this.setState({ listCalendarios: resultadoCalendario });
-    });
-  };
-
   componentDidMount() {
-    const itemsRef = firebase
-      .database()
-      .ref("calendario/torneos/Delgado_2019/1");
-    this.listenForItems(itemsRef);
-    console.log("State " + this.state);
+    loadTeams(this, "Femenino");
   }
 
   renderRow = listCalendarios => {
-    console.log("renderRow");
     console.log(listCalendarios.item);
     const {
       categoria,
@@ -120,7 +109,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff"
   },
   navegadorCategorias: {
-    backgroundColor: "#232323",
+    backgroundColor: color.COLOR_PRINCIPAL,
     height: 50,
     marginBottom: 25,
     marginTop: 2,
