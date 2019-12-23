@@ -1,6 +1,6 @@
 import firebase from "react-native-firebase";
 
-export const loadTeams = (object, categoria) => {
+export const loadTeams = (fn, categoria) => {
   //Referencia firebase
   let itemsRef = firebase.database().ref("calendario/torneos");
   let itemChildRef = itemsRef.child(
@@ -8,19 +8,19 @@ export const loadTeams = (object, categoria) => {
   );
 
   console.log("referencia obtenida: " + itemChildRef);
-  console.log("referencia obtenida: " + itemsRef);
 
-  listenForItems(itemChildRef, object);
+  listenForItems(itemChildRef, fn);
 };
 
 // Función como ingreso tiene la referencia
-export const listenForItems = (itemsRef, object) => {
+export const listenForItems = (itemsRef, fn) => {
   //Creamos una array que va a guardar el valor obtenido en la referencia
 
   let listResult = [];
   itemsRef.on("value", snap => {
     let data = snap.val();
     listResult = Object.values(data);
-    object.setState({ listCalendarios: listResult });
+    //object.setState({ listCalendarios: listResult });
+    fn(listResult);
   });
 };

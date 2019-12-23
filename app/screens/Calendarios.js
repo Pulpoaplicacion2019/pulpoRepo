@@ -9,28 +9,38 @@ import {
 
 import { Image } from "react-native-elements";
 
+//Importación componente de navegación
+import NavegadorCategorias from "../components/NavegadorCategorias.js";
+
 // Importación de constantes de color
 import * as color from "../constants/colors.js";
 
 // Importación componente de extración de firebase
 import { loadTeams } from "../services/calendarioService.js";
+import { Container, Content, Header } from "native-base";
+
+const NOMBRE_CLASE = "Calendarios";
 
 export default class Calendarios extends Component {
   constructor() {
     super();
     this.state = {
-      listCalendarios: null
+      listCalendarios: null,
+      categoria: ""
     };
   }
 
   componentDidMount() {
-    loadTeams(this, "Femenino");
+    var listaCategorias = global.listaCategorias;
+    var categ = listaCategorias[0];
+    console.log(NOMBRE_CLASE + ">> Lista global:" + listaCategorias);
+    loadTeams(lista => {
+      this.setState({ listCalendarios: lista });
+    }, categ);
   }
 
   renderRow = listCalendarios => {
-    console.log(listCalendarios.item);
     const {
-      categoria,
       equipoUno,
       equipoDos,
       fecha,
@@ -38,7 +48,7 @@ export default class Calendarios extends Component {
       minuto,
       cancha
     } = listCalendarios.item;
-    console.log(equipoUno);
+
     return (
       <View style={styles.viewPartidos}>
         <View style={styles.viewEquipoUno}>
@@ -89,12 +99,25 @@ export default class Calendarios extends Component {
   render() {
     const { listCalendarios } = this.state;
     return (
-      <View style={styles.viewBody}>
-        <View style={styles.navegadorCategorias}>
-          <Text style={styles.titleCartegorias}>Categorias</Text>
-        </View>
-        {this.renderFlatList(listCalendarios)}
-      </View>
+      <Container>
+        <Header style={styles.header}>
+          <NavegadorCategorias
+            pintar={categ => {
+              loadTeams(lista => {
+                this.setState({ listCalendarios: lista });
+              }, categ);
+            }}
+          ></NavegadorCategorias>
+        </Header>
+        <Content>
+          <View style={styles.viewBody}>
+            <View style={styles.navegadorCategorias}>
+              <Text style={styles.titleCartegorias}>Categorias</Text>
+            </View>
+            {this.renderFlatList(listCalendarios)}
+          </View>
+        </Content>
+      </Container>
     );
   }
 }
