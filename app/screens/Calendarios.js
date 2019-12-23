@@ -13,7 +13,9 @@ import { Image } from "react-native-elements";
 import NavegadorCategorias from "../components/NavegadorCategorias.js";
 
 // Importación de constantes de color
-import * as color from "../constants/colors.js";
+import * as COLOR from "../constants/colors.js";
+import StatusBarGeneral from "../components/StatusBarGeneral.js";
+import * as CONSTANTES from "../constants/constantes.js";
 
 // Importación componente de extración de firebase
 import { loadTeams } from "../services/calendarioService.js";
@@ -111,12 +113,10 @@ export default class Calendarios extends Component {
         </Header>
         <Content>
           <View style={styles.viewBody}>
-            <View style={styles.navegadorCategorias}>
-              <Text style={styles.titleCartegorias}>Categorias</Text>
-            </View>
             {this.renderFlatList(listCalendarios)}
           </View>
         </Content>
+        <StatusBarGeneral></StatusBarGeneral>
       </Container>
     );
   }
@@ -131,15 +131,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff"
   },
-  navegadorCategorias: {
-    backgroundColor: color.COLOR_PRINCIPAL,
-    height: 50,
-    marginBottom: 25,
-    marginTop: 2,
-    justifyContent: "center",
-    alignItems: "center"
-  },
-  titleCartegorias: { fontSize: 20, color: "#FFFFFF" },
   startLoadCalendarios: { marginTop: 20, alignItems: "center" },
   viewEquipoUno: {
     flex: 1,
@@ -150,14 +141,18 @@ const styles = StyleSheet.create({
   viewNombreEquipo: { fontSize: 9 },
   viewPartidos: {
     flexDirection: "row",
-    marginLeft: 5,
-    marginRight: 5,
-    backgroundColor: "#D9D9D9",
-    marginTop: 5,
+    marginLeft: 2,
+    marginRight: 2,
+    marginTop: 2,
     padding: 5,
-    borderRadius: 25,
+    backgroundColor: COLOR.COLOR_SNOWY_MOUNT,
+    borderRadius: CONSTANTES.BORDER_RADIUS,
     height: 90
   },
   imagenEstilo: { width: 60, height: 60 },
-  viewDatos: { flex: 2, justifyContent: "center", alignItems: "center" }
+  viewDatos: { flex: 2, justifyContent: "center", alignItems: "center" },
+  header: {
+    backgroundColor: COLOR.COLOR_SECUNDARIO,
+    marginTop: 2
+  }
 });
