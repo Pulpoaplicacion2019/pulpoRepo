@@ -8,13 +8,13 @@ import {guardarTorneo} from '../../services/torneos.js';
 
 import DatePicker from 'react-native-datepicker'
  
-const options = {
+/*const options = {
   title: 'Select Image',
   storageOptions: {
     skipBackup: true,
     path: 'images'
   }
-};
+};*/
 export default class PerfilTorneo extends Component {
  
   constructor(props){
@@ -37,7 +37,7 @@ export default class PerfilTorneo extends Component {
    /**
    * Select image method
    */
-  pickImage = () => {
+ /* pickImage = () => {
     ImagePicker.showImagePicker(options, response => {
       if (response.didCancel) {
         alert('You cancelled image picker 😟');
@@ -51,9 +51,9 @@ export default class PerfilTorneo extends Component {
         });
       }
     });
-  };
+  };*/
 
-  uploadImage = () => {
+  /*uploadImage = () => {
     const ext = this.state.imageUri.split('.').pop(); // Extract image extension
     const filename =new Date().getTime(); // Generate unique name
     this.setState({ uploading: true });
@@ -73,9 +73,9 @@ export default class PerfilTorneo extends Component {
               imageUri: '',
               progress: 0,
               url:snapshot.downloadURL,
-             /* images: allImages*/
+             
             };
-           /* AsyncStorage.setItem('images', JSON.stringify(allImages));*/
+          
           }
           this.setState(state);
         },
@@ -85,7 +85,7 @@ export default class PerfilTorneo extends Component {
           alert('Sorry, Try again.');
         }
       );
-  };
+  };*/
   
   
 listenForItems = (itemsRef) => {
@@ -133,30 +133,16 @@ guardar = () => {
     return (
       <View >
         
-        <Text style={styles.welcome}>React Native Firebase Image Upload </Text>
-        <Text style={styles.instructions}>Hello 👋, Let us upload an Image</Text>
-        {/** Select Image button */}
-        <TouchableOpacity style={styles.btn} onPress={this.pickImage}>
-          <View>
-            <Text style={styles.btnTxt}>Pick image</Text>
-          </View>
-        </TouchableOpacity>
-        {/** Display selected image */}
-        {this.state.imgSource ? (
-          <Image
-            source={this.state.imgSource}
-            style={styles.image}
+        <Avatar
+              size="xlarge"
+              rounded
+              title="CR"
+              onPress={() => console.log("Works!")}
+              activeOpacity={0.7}
           />
-        ) : (
-          <Text>Select an Image!</Text>
-        )}
- 
-<TouchableOpacity style={styles.btn} onPress={this.uploadImage}>
-          <View>
-            <Text style={styles.btnTxt}>upload image</Text>
-          </View>
-        </TouchableOpacity>
-
+           <Button          
+           icon={{name: 'insert-photo'}}
+           title='Cargar' onPress={this.props.nav.navigate("TabEquipos",{url:'torneos'})}/>
       
           <Input placeholder= {this.state.url}
           
