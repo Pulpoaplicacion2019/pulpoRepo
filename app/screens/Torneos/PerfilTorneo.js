@@ -4,6 +4,7 @@ import { Avatar, Input ,Icon, Button } from 'react-native-elements';
 import firebase from 'react-native-firebase';
 /*import MultiSelect from 'react-native-multiple-select';*/
 import  ImagePicker  from 'react-native-image-picker' ;
+import {guardarTorneo} from '../../services/torneos.js';
 
 import DatePicker from 'react-native-datepicker'
  
@@ -18,18 +19,18 @@ export default class PerfilTorneo extends Component {
  
   constructor(props){
     super(props);
-    this.state = {date:this.date,
-      torneo:{nombreTorneo:'Nombre Torneo',
-      fechaRegistro:'Año',
+    this.state = {
+      anio:'',
+      date:this.date,
+      nombreTorneo:'',
+      fechaRegistro:'',
       estado:'A',
-      fechaInicio:'Fecha Inicio',
-      nombreOrganizador:'Nombre Organizador',
-      apellidoOrganizador:'Apellido Organizador',
-      correoOrganizador:'Mail Organizador',
-      telefonoOrganizador:'Teléfono Organizador'
-             },
-             imgSource: ''
-                
+      fechaInicio:'',
+      nombreOrganizador:'',
+      apellidoOrganizador:'',
+      correoOrganizador:'',
+      telefonoOrganizador:'',
+      favorito:'false'
     };
    
   };
@@ -101,7 +102,24 @@ listenForItems = (itemsRef) => {
       //this.listenForItems(itemsRef);
   }
 
-  
+   
+guardar = () => {
+  const torneo= {
+    anio:this.state.anio,
+    apellidoOrganizador:this.state.apellidoOrganizador,
+    correoOrganizador:this.state.correoOrganizador,
+    estado:this.state.estado,
+    favorito:this.state.favorito,
+    nombreTorneo:this.state.nombreTorneo,
+    fechaInicio:this.state.fechaInicio,
+    id:this.state.nombreTorneo+'_'+this.state.anio,
+    imagenTorneo:this.state.url,
+    nombreOrganizador:this.state.nombreOrganizador,
+    nombreTorneo:this.state.nombreTorneo,
+    telefonoOrganizador:this.state.telefonoOrganizador
+  }  
+  guardarTorneo(torneo);
+}
   
   
  
@@ -139,39 +157,50 @@ listenForItems = (itemsRef) => {
           </View>
         </TouchableOpacity>
 
-        <Avatar
-              size="xlarge"
-              rounded
-              title="CR"
-              onPress={() => console.log("Works!")}
-              activeOpacity={0.7}
-          />
+      
           <Input placeholder= {this.state.url}
+          
                 leftIcon={ <Icon name='account-group' type="material-community" size={20} color='black' />}
                
          />
-          <Input placeholder= {this.state.torneo.nombreTorneo}
+          <Input placeholder='Año'
+                onChangeText={text => this.setState({anio:text})}
+                value={this.state.anio}
+                leftIcon={ <Icon name='chevron-down-box' type="material-community" size={20} color='black' />}
+         />
+          <Input placeholder= 'Nombre Torneo'
+                onChangeText={text => this.setState({nombreTorneo:text})}
+                value={this.state.nombreTorneo}
+           
                 leftIcon={ <Icon name='account-group' type="material-community" size={20} color='black' />}
                
          />
-         <Input placeholder={this.state.torneo.nombreOrganizador}
+         <Input placeholder='Nombre Organizador'
+                onChangeText={text => this.setState({nombreOrganizador:text})}
+                value={this.state.nombreOrganizador}
                 leftIcon={ <Icon name='account-arrow-right' type="material-community"  size={20} color='black' />}
          />
 
-         <Input placeholder={this.state.torneo.apellidoOrganizador}
+         <Input placeholder='Apellido Organizador'
+                onChangeText={text => this.setState({apellidoOrganizador:text})}
+                value={this.state.apellidoOrganizador}
                 leftIcon={ <Icon name='account-arrow-right' type="material-community"  size={20} color='black' />}
          />
-          <Input placeholder={this.state.torneo.telefonoOrganizador}
+          <Input placeholder='Telefono Organizador'
+                 onChangeText={text => this.setState({telefonoOrganizador:text})}
+                value={this.state.telefonoOrganizador}
                 leftIcon={ <Icon name='phone-in-talk' type="material-community" size={20} color='black' />}
          />
-         <Input placeholder={this.state.torneo.correoOrganizador}
+         <Input placeholder='Correo Organizador'
+                onChangeText={text => this.setState({correoOrganizador:text})}
+                value={this.state.correoOrganizador}
                 leftIcon={ <Icon name='chevron-down-box' type="material-community" size={20} color='black' />}
          />
-         <Input placeholder= {this.state.torneo.fechaInicio}
+         <Input placeholder= {this.state.fechaInicio}
                 leftIcon={ <Icon name='calendar' type="material-community" size={20} color='black' />}
          />
 
-         <Button title="GUARDAR" />
+         <Button title="GUARDAR" onPress={this.guardar}/>
 
       </View>
     );

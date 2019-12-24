@@ -1,5 +1,12 @@
 import firebase from 'react-native-firebase';
 
+
+export const guardarTorneo =(torneo)=>{
+    console.log("ingresa a cargar equipos");
+   var itemsRef = firebase.database().ref('torneos').child(torneo.nombreTorneo+'_'+torneo.anio);
+   itemsRef.set(torneo)
+}
+
 export const cargarTorneos =(object)=>{
 	console.log("ingresa a cargar");
     global.itemsRef = firebase.database().ref('torneos');	  
