@@ -2,19 +2,10 @@ import React, { Component } from "react";
 import { StyleSheet, View, Text,TouchableOpacity,Image,FlatList,AsyncStorage,Dimensions,cScrollView } from "react-native";
 import { Avatar, Input ,Icon, Button } from 'react-native-elements';
 import firebase from 'react-native-firebase';
-/*import MultiSelect from 'react-native-multiple-select';*/
-import  ImagePicker  from 'react-native-image-picker' ;
 import {guardarTorneo} from '../../services/torneos.js';
 
 import DatePicker from 'react-native-datepicker'
- 
-/*const options = {
-  title: 'Select Image',
-  storageOptions: {
-    skipBackup: true,
-    path: 'images'
-  }
-};*/
+
 export default class PerfilTorneo extends Component {
  
   constructor(props){
@@ -35,60 +26,7 @@ export default class PerfilTorneo extends Component {
     };
    
   };
-   /**
-   * Select image method
-   */
- /* pickImage = () => {
-    ImagePicker.showImagePicker(options, response => {
-      if (response.didCancel) {
-        alert('You cancelled image picker 😟');
-      } else if (response.error) {
-        alert('And error occured: ', response.error);
-      } else {
-        const source = { uri: response.uri };
-        this.setState({
-          imgSource: source,
-          imageUri: response.uri
-        });
-      }
-    });
-  };*/
-
-  /*uploadImage = () => {
-    const ext = this.state.imageUri.split('.').pop(); // Extract image extension
-    const filename =new Date().getTime(); // Generate unique name
-    this.setState({ uploading: true });
-    firebase.storage().ref('tutorials/images/'+filename).putFile(this.state.imageUri).on(
-        firebase.storage.TaskEvent.STATE_CHANGED,
-        snapshot => {
-          let state = {};
-          state = {
-            ...state,
-            progress: (snapshot.bytesTransferred / snapshot.totalBytes) * 100 // Calculate progress percentage
-          };
-          if (snapshot.state === firebase.storage.TaskState.SUCCESS) {
-            state = {
-              ...state,
-              uploading: false,
-              imgSource: '',
-              imageUri: '',
-              progress: 0,
-              url:snapshot.downloadURL,
-             
-            };
-          
-          }
-          this.setState(state);
-        },
-
-        error => {
-          unsubscribe();
-          alert('Sorry, Try again.');
-        }
-      );
-  };*/
-  
-  
+    
 listenForItems = (itemsRef) => {
     itemsRef.on('value', (snap) => {
      var torneoFirebase =snap.val();
@@ -100,7 +38,6 @@ listenForItems = (itemsRef) => {
   
 	componentDidMount() {
       const itemsRef = firebase.database().ref('torneos/Delgado_2019');	  
-      //this.listenForItems(itemsRef);
   }
 
    
@@ -141,13 +78,11 @@ this.setState({uri:uriCargado})
               rounded
               title="CR"
               source={{uri:this.state.uri}}
-              onPress={() => console.log("Works!")}
+              onEditPress={()=>this.props.navigation.navigate("CargarImagen",{url:'torneos',fn:this.pintarImagen, imagenActual:{uri:this.state.uri}})}
               activeOpacity={0.7}
+              showEditButton= {true}
           />
-           <Button          
-           icon={{name: 'insert-photo'}}
-           title='Cargar' onPress={()=>this.props.navigation.navigate("CargarImagen",{url:'torneos',fn:this.pintarImagen, imagenActual:{uri:this.state.uri}})}/>
-      
+           
           <Input placeholder= {this.state.url}
           
                 leftIcon={ <Icon name='account-group' type="material-community" size={20} color='black' />}

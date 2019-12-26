@@ -17,7 +17,7 @@ const options = {
         this.state = {
             imgSource: '',
             url:'',
-            nuevaImagen:'false'
+            nuevaImagen:true
         };
        
       };
@@ -33,12 +33,16 @@ const options = {
         this.setState({
           imgSource: source,
           imageUri: response.uri,
-          nuevaImagen:'true'
+          nuevaImagen:false
         });
       }
     });
   };
+  cancelar=()=>{
+    this.props.navigation.goBack();
+  }
   uploadImage = () => {
+    this.setState({nuevaImagen:true})
     const ext = this.state.imageUri.split('.').pop(); // Extract image extension
     const filename =new Date().getTime(); // Generate unique name
     this.setState({ uploading: true });
@@ -79,7 +83,7 @@ const options = {
   this.setState({imgSource:imagenActual})
 }
   render(){
-    const { uploading,  progress } = this.state
+    const { uploading,  progress,nuevaImagen } = this.state
       return(
         <View >
           
@@ -103,9 +107,20 @@ const options = {
                     style={[styles.progressBar, { width:progress }]}
                   />
                 )}
-      <TouchableOpacity style={styles.btn} onPress={this.uploadImage}>
+      <TouchableOpacity style={nuevaImagen? styles.disabledBtn:styles.btn}   disabled= {nuevaImagen} onPress={this.uploadImage}>
           <View>
-            <Text style={styles.btnTxt}>Cargar Imagen</Text>
+            <Text style={styles.btnTxt} 
+            
+
+            >Guardar</Text>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity style={nuevaImagen? styles.disabledBtn:styles.btn}   disabled= {nuevaImagen} onPress={this.cancelar}>
+          <View>
+            <Text style={styles.btnTxt} 
+            
+
+            >Cancelar</Text>
           </View>
         </TouchableOpacity>
 
@@ -134,18 +149,27 @@ const options = {
       marginTop: 20,
      alignItems: 'center'
     },
+
     disabledBtn: {
-      backgroundColor: 'rgba(3,155,229,0.5)'
+      paddingLeft: 20,
+      paddingRight: 20,
+      paddingTop: 10,
+      paddingBottom: 10,
+      borderRadius: 20,
+      backgroundColor: 'rgb(3, 154, 229)',
+      marginTop: 20,
+      alignItems: 'center',
+      opacity:0.5
     },
+   
     btnTxt: {
       color: '#fff'
     },
     image: {
       marginTop: 20,
-      minWidth: 200,
-      height: 200,
-      resizeMode: 'contain',
-      backgroundColor: '#ccc',
+      minWidth:200,
+      height: 400,
+      resizeMode: 'contain'
   
     },
   
