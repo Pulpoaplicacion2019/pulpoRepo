@@ -58,7 +58,10 @@ const options = {
         }
       );
   };
+  componentDidMount() {
+    this.props.navigation.state.params.url; 
   
+}
   render(){
       return(
         <View >
@@ -79,7 +82,7 @@ const options = {
           <Text>Seleccione una imagen!</Text>
         )}
  
-      <TouchableOpacity style={styles.btn} onPress={this.uploadImage}>
+      <TouchableOpacity style={styles.btn} onPress={this.uploadImage(this.props.url)}>
           <View>
             <Text style={styles.btnTxt}>Cargar Imagen</Text>
           </View>

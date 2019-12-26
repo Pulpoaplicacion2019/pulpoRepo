@@ -142,7 +142,7 @@ guardar = () => {
           />
            <Button          
            icon={{name: 'insert-photo'}}
-           title='Cargar' onPress={this.props.nav.navigate("TabEquipos",{url:'torneos'})}/>
+           title='Cargar' onPress={this.props.nav.navigate("CargarImagen",{url:'torneos'})}/>
       
           <Input placeholder= {this.state.url}
           

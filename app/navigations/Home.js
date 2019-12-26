@@ -18,6 +18,7 @@ import PosicionesScreen from "../screens/Posiciones";
 import ResultadosScreen from "../screens/Resultados";
 
 import PerfilTorneoScreen from "../screens/Torneos/PerfilTorneo";
+import CargarImagenScreen from "../components/CargarImagen";
 import CrearEquiposScreen from "../screens/Equipos/CrearEquipos";
 
 import LoginScreen from "../screens/Login"
@@ -66,6 +67,10 @@ const TorneosRootStack = createStackNavigator({
 	},
 	PerfilTorneo:{
 		screen:PerfilTorneoScreen,
+		
+	},
+	CargarImagen:{
+		screen:CargarImagenScreen,
 		
 	},
    CrearEquipos:{
