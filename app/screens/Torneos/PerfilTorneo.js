@@ -81,6 +81,7 @@ this.setState({uri:uriCargado})
               onEditPress={()=>this.props.navigation.navigate("CargarImagen",{url:'torneos',fn:this.pintarImagen, imagenActual:{uri:this.state.uri}})}
               activeOpacity={0.7}
               showEditButton= {true}
+              editButton={{underlayColor:'#000',color: '#6E2665', name: 'mode-edit', type: 'material',containerStyle:'#6E2665',reverse:true,size:30}}
           />
            
           <Input placeholder= {this.state.url}
