@@ -30,7 +30,8 @@ export default class PerfilTorneo extends Component {
       apellidoOrganizador:'',
       correoOrganizador:'',
       telefonoOrganizador:'',
-      favorito:'false'
+      favorito:'false',
+      uri:''
     };
    
   };
@@ -127,7 +128,9 @@ guardar = () => {
     this.setState({ selectedItems });
   };
  
-
+pintarImagen=(uriCargado)=>{
+this.setState({uri:uriCargado})
+}
   render() {
     
     return (
@@ -137,12 +140,13 @@ guardar = () => {
               size="xlarge"
               rounded
               title="CR"
+              source={{uri:this.state.uri}}
               onPress={() => console.log("Works!")}
               activeOpacity={0.7}
           />
            <Button          
            icon={{name: 'insert-photo'}}
-           title='Cargar' onPress={this.props.nav.navigate("CargarImagen",{url:'torneos'})}/>
+           title='Cargar' onPress={()=>this.props.navigation.navigate("CargarImagen",{url:'torneos',fn:this.pintarImagen, imagenActual:{uri:this.state.uri}})}/>
       
           <Input placeholder= {this.state.url}
           

@@ -1,6 +1,7 @@
 import { StyleSheet, View, Text,TouchableOpacity,Image,FlatList,AsyncStorage,Dimensions,cScrollView } from "react-native";
 import firebase from 'react-native-firebase';
 import  ImagePicker  from 'react-native-image-picker' ;
+import React, { Component } from "react";
 const options = {
     title: 'Select Image',
     storageOptions: {
@@ -10,9 +11,17 @@ const options = {
   };
 
   export default class CargarImagen extends Component{
-       /**
-   * Select image method
-   */
+
+    constructor(props){
+        super(props);
+        this.state = {
+            imgSource: '',
+            url:'',
+            nuevaImagen:'false'
+        };
+       
+      };
+ 
   pickImage = () => {
     ImagePicker.showImagePicker(options, response => {
       if (response.didCancel) {
@@ -23,15 +32,19 @@ const options = {
         const source = { uri: response.uri };
         this.setState({
           imgSource: source,
-          imageUri: response.uri
+          imageUri: response.uri,
+          nuevaImagen:'true'
         });
       }
     });
   };
-  uploadImage = (url) => {
+  uploadImage = () => {
     const ext = this.state.imageUri.split('.').pop(); // Extract image extension
     const filename =new Date().getTime(); // Generate unique name
     this.setState({ uploading: true });
+    let url=this.props.navigation.state.params.url;
+    let fn=this.props.navigation.state.params.fn;
+   
     firebase.storage().ref(url+'/'+filename).putFile(this.state.imageUri).on(
         firebase.storage.TaskEvent.STATE_CHANGED,
         snapshot => {
@@ -49,6 +62,8 @@ const options = {
               progress: 0,
               url:snapshot.downloadURL, 
             };
+            this.props.navigation.goBack();
+            fn(snapshot.downloadURL);
           }
           this.setState(state);
         },
@@ -57,19 +72,21 @@ const options = {
           alert('Sorry, Try again.');
         }
       );
+
   };
   componentDidMount() {
-    this.props.navigation.state.params.url; 
-  
+  let imagenActual=this.props.navigation.state.params.imagenActual;
+  this.setState({imgSource:imagenActual})
 }
   render(){
+    const { uploading,  progress } = this.state
       return(
         <View >
           
         {/** Select Image button */}
         <TouchableOpacity style={styles.btn} onPress={this.pickImage}>
           <View>
-            <Text style={styles.btnTxt}>Pick image</Text>
+            <Text style={styles.btnTxt}>Seleccione Imagen</Text>
           </View>
         </TouchableOpacity>
         {/** Display selected image */}
@@ -81,8 +98,12 @@ const options = {
         ) : (
           <Text>Seleccione una imagen!</Text>
         )}
- 
-      <TouchableOpacity style={styles.btn} onPress={this.uploadImage(this.props.url)}>
+  {uploading && (
+                  <View
+                    style={[styles.progressBar, { width:progress }]}
+                  />
+                )}
+      <TouchableOpacity style={styles.btn} onPress={this.uploadImage}>
           <View>
             <Text style={styles.btnTxt}>Cargar Imagen</Text>
           </View>
@@ -93,3 +114,56 @@ const options = {
   }
 
   }
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      flexDirection: 'column',
+      backgroundColor: '#ffffff',
+      marginTop: 20,
+      paddingLeft: 5,
+      paddingRight: 5
+    },
+  
+    btn: {
+      paddingLeft: 20,
+      paddingRight: 20,
+      paddingTop: 10,
+      paddingBottom: 10,
+      borderRadius: 20,
+      backgroundColor: 'rgb(3, 154, 229)',
+      marginTop: 20,
+     alignItems: 'center'
+    },
+    disabledBtn: {
+      backgroundColor: 'rgba(3,155,229,0.5)'
+    },
+    btnTxt: {
+      color: '#fff'
+    },
+    image: {
+      marginTop: 20,
+      minWidth: 200,
+      height: 200,
+      resizeMode: 'contain',
+      backgroundColor: '#ccc',
+  
+    },
+  
+    img: {
+      flex: 1,
+      height: 100,
+      margin: 5,
+      resizeMode: 'contain',
+      borderWidth: 1,
+      borderColor: '#eee',
+      backgroundColor: '#ccc'
+    },
+    progressBar: {
+      backgroundColor: 'rgb(3, 154, 229)',
+      height: 5,
+      shadowColor: '#000',
+    }
+  });
+  
+  
+  
